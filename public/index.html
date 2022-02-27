@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/handlebars.js"></script>
+  <script type="module" src="javascripts/app.js"></script>
+  <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+
+</head>
+<body>
+  <div>
+    <header>
+      <div class="heading">
+        <a href="/">
+          <h1 class="mainHeader">Contact Manager</h1>
+        </a>
+      </div>
+      <div class="heading">
+        <p>Using Backbone.js, Localstorage, RequireJS, Handlebar and Bootstrap</p>
+      </div>
+    </header>
+    <div id="mainContainer">
+    </div>
+  </div>
+  <footer class="footer">
+    <p>Developed by <a href="https://www.devsaran.com/">Devsaran.com</a> and <a href="https://www.239listing.com/">239 Listing Real Estate.</a></p>
+  </footer>
+  
+  <!-- Handlebars scripts:  -->
+
+  <script type="text/x-handlebars-template" id="homePage">
+    <div class="searchContainer">
+      <div></div>
+      <button type="button" class="addContactButton button" data-action="displayNewContactForm">Add Contact</button>
+      <input type="search" class="searchBox" placeholder="Search" data-action="search"> 
+    </div>
+    <div class="searchingOptions">
+      <div></div>
+      <div id="searchBy">
+        <div> 
+          <input type="radio" id="searchByName" name="searchBy" value="Search by Name"
+                checked>
+          <label for="huey">Search by Name</label>
+        </div>
+        <div>
+          <input type="radio" id="searchByTag" name="searchBy" value="searchByTag">
+          <label for="searchByTag">Search By Tag</label>
+        </div>
+      </div>
+    </div>
+    <div id="contactCardsDiv" class="contactCardsDiv">
+      {{> contactCards}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-type='template' id="contactPartial">
+    <div id="{{id}}" class="singleContactCard">
+      <h2>{{full_name}}</h2>
+      <p><b>Phone Number:</b></p>
+      <p>{{phone_number}}</p>
+      <p><b>Email:</b></p>
+      <p>{{email}}</p>
+      <p><b>Tags:</b></p>
+      <div>
+        {{{makeSpanTags tags}}}
+      </div>
+      <button type="button" class="editButton button" data-action="displayEditContactForm">Edit</button>
+      <button type="button" class="deleteButton button" data-action="removeContact">Delete</button>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" id="contactCards">
+    {{#unless contacts}}
+    <div class="info">
+      <h2>There is no contacts. </h2>
+      <button type="button" class="addContactButton button" data-action="displayNewContactForm" data-serverAction="">Add Contact</button> 
+    <div class="info">
+    {{else}}
+    <div class="contactCardsGrid">
+      {{#each contacts}}
+      {{> contactPartial }}
+      {{/each}}
+    </div>
+    {{/unless}}
+  </script> 
+
+  
+  <script type="text/x-handlebars-template" id="noContacts">
+    <form action="" class="newTagForm">
+      <label for="newTag">Input a new tag:</label>
+      <input type="text">      
+    </form>
+  </script>
+
+  <script type="text/x-handlebars-template" id="noContactsByName">
+    <div class="info">
+      <h3>There is no contacts containing <span><b>{{pattern}}</b></span></h3>
+    </div>
+  </script>
+
+	<script type="text/x-handlebars-template" id="noContactsByTag">
+    <div class="info">
+      <h3>There is no contacts with tag that contains <span><b>{{pattern}}</b></span></h3>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" id="tags">
+    {{#each tags}}
+    <div>
+      <input class="tagCheckbox" type="checkbox" id="{{this}}" name="{{this}}">
+      <label for="{{this}}">{{this}}</label>
+    </div>
+    {{/each}}
+  </script>
+
+<script type="text/x-handlebars-template" id="formTemplate">
+	{{#if contact.id}}
+	<form data-contactid="{{contact.id}}" data-submitaction="submitEditedContact">
+    <div><h2>Edit Contact</h2></div>
+	{{else}}
+	<form data-contactid="{{contact.id}}" data-submitaction="submitNewContact">
+    <div><h2>Create Contact</h2></div>
+	{{/if}}
+    <ul>
+      <li><label for="full_name">Full Name:</label></li>
+      <li><input type="text" name="full_name" value="{{contact.full_name}}" pattern="^(\w+)\s(\w+)$" required></li>
+      <li><label for="email">Email address:</label></li>
+      <li><input type="email" name="email" value="{{contact.email}}" required></li>
+      <li><label for="">Telephone number:</label></li>
+      <li><input type="tel" name="phone_number" value="{{contact.phone_number}}" pattern="[0-9]+" required></li>
+      <li><label for="tags">Tags:</label></div>
+      <li><div id="tagsContainer" class="tagsContainer">  
+      {{> tags }}
+      </div>
+      </li>
+      <div>
+        <button type="button" class="createTag button" data-action="createNewtag">Create a New Tag</button>
+        {{#if contact.id}}
+        <input type="submit" class="submitEditButton button">
+        {{else}}
+        <input type="submit" class="submitCreateButton button">
+        {{/if}}
+        <button type="button" class="cancelButton button" data-action="cancelForm">Cancel</button>
+      </div>
+  </form>
+  <div id="newTagFormContainer" class="hidden">
+    <label for="">Input a new tag:</label>
+    <input type="text" id="newTagInput" class="newTagInput">
+    <button type="button" class="okButton button" data-action="confirmCreateTag">Ok</button>
+    <button type="button" class="cancelButton cancelAddingTag button" data-action="cancelAddingTag">Cancel</button>
+  </div>
+</script>

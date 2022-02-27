@@ -1,0 +1,133 @@
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: rgb(244, 243, 253);
+	min-height: 100%;
+	display: grid;
+	grid-template-rows: 1fr auto;
+	
+}
+
+header {
+	background-color: rgb(43, 39, 66);
+	color: aliceblue;
+}
+
+.heading {
+	display: flex;
+	justify-content: center; /* horizontal */
+	align-items: center; /* vertical */
+}
+
+.mainHeader {
+	color: aliceblue;
+	text-decoration: underline rgb(43, 39, 66);
+}
+
+h3 {
+	font-weight: 400;
+}
+
+.button {
+box-shadow:inset 0px 1px 0px 0px #ffffff;
+background:linear-gradient(to bottom, #f2f2f2 5%, #e0e0e0 100%);
+background-color:#f2f2f2;
+border:1px solid #b0b0b0;
+display:inline-block;
+cursor:pointer;
+color:rgb(43, 39, 66);
+font-family:Arial;
+font-size:13px;
+font-weight:bold;
+padding:6px 12px;
+text-decoration:none;
+}
+.button:hover {
+background:linear-gradient(to bottom, #e0e0e0 5%, #f2f2f2 100%);
+background-color:#e0e0e0;
+}
+.button:active {
+position:relative;
+top:1px;
+}
+
+
+.tag {
+	background-color: rgb(255, 223, 173);
+	font-size: large;
+	width: auto;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+
+/* layout */
+
+#mainTemplateContainer {
+	margin: 2%;
+}
+
+
+.searchContainer {
+	display: grid;
+	grid-template-columns: 8fr repeat(2, 1fr);
+	grid-template-rows: 1fr;
+	grid-column-gap: 5px;
+	grid-row-gap: 0px;
+}
+
+.searchingOptions {
+	margin: 10px;
+	display: grid;
+	grid-template-columns: 7fr 1fr;
+	grid-template-rows: 1fr;
+	grid-column-gap: 5px;
+	grid-row-gap: 0px;
+}
+
+.contactCardsGrid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	grid-column-gap: 5px;
+	grid-row-gap: 5px;
+}
+
+.singleContactCard {
+	background-color: #e7e7e7;
+	padding: 10px;
+}
+
+.info {
+	display: flex;
+	justify-content: center; /* horizontal */
+	align-items: center; /* vertical */ 
+}
+
+ul {
+	list-style-type: none;
+	/* padding: 15px;
+	margin-left: 5px; */
+}
+
+li {
+	padding: 5px;
+}
+
+input {
+	margin: 1px;
+	border: 0.5px solid rgb(168, 168, 168);
+	padding: 0.5px;
+}
+
+.footer {
+	margin-left: 10px;
+	grid-row-start: 2;
+	grid-row-end: 3;
+}
