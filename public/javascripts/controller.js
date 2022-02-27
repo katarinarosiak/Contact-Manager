@@ -13,27 +13,27 @@ class Controller{
 	init() {
 		this.model.getContacts(this.view.init.bind(this.view));
 		this.view.addEventHandling(
-			this.clickHandler.bind(this), 
-			this.inputHandler.bind(this), 
-			this.submitHandler.bind(this)
+			this.clickDispatcher.bind(this), 
+			this.inputDispatcher.bind(this), 
+			this.submitDispatcher.bind(this)
 		);
 	}
 
-	clickHandler(event) { 
+	clickDispatcher(event) { 
 		let action = event.target.dataset.action;
 		if (action) {			
 			this[action](event) 
 		} 
 	}
 
-	inputHandler(event) {
+	inputDispatcher(event) {
 		let action = event.target.dataset.action;
 		if (action) {			
 			this[action](event) 
 		} 
 	}
 
-	submitHandler(event) {
+	submitDispatcher(event) {
 		event.preventDefault(); 
 		let submitaction = event.target.dataset.submitaction;
 		if (submitaction) {			
